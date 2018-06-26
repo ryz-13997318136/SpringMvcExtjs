@@ -1,9 +1,13 @@
 package com.ryz.cn.dao;
 
-import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +17,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ryz.cn.utils.TablesNamesFinder;
-
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserManager;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.select.Select;
 
 @Repository
 public class CommDaoImple extends HibernateDaoSupport implements CommDao {
@@ -58,7 +54,7 @@ public class CommDaoImple extends HibernateDaoSupport implements CommDao {
         for(int i=0;i<params.length;i++){
         	query.setString(i, params[i]);
         }
-        List<?> results = query.list();  
+        List<?> results = query.list();
         String[] arr = getColumn(sql);
         Map<String,Object> map = null;
         List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();
@@ -89,5 +85,44 @@ public class CommDaoImple extends HibernateDaoSupport implements CommDao {
 			}
 		}
 		return arr;
+	}
+
+	public List<Map<String, Object>> selectSql(String sql) {
+		return this.selectSql(sql,new String[]{});
+	}
+	
+	public List<Map<String,Object>> executeQuery(String sql,String[] params){
+		@SuppressWarnings("deprecation")
+		List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();
+		try {
+			Connection con = sessionFactory.getCurrentSession().connection();
+			PreparedStatement st = con.prepareStatement(sql);
+			for(int i = 0;i<params.length;i++){
+				st.setObject(i+1, params[i]);
+			}
+			ResultSet res = st.executeQuery();
+			ResultSetMetaData rsmd = res.getMetaData();
+			int count = rsmd.getColumnCount();
+			String[] columns = new String[count];
+			for(int j=0;j<count;j++){
+				columns[j] = rsmd.getColumnName(j+1);
+			}
+			Map<String,Object> map = null;
+			while(res.next()){
+				map = new HashMap<String,Object>();
+				for(String c : columns){
+					map.put(c, res.getString(c));
+				}
+				mapList.add(map);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mapList;
+	}
+	public List<Map<String,Object>> executeQuery(String sql){
+		return this.executeQuery(sql, new String[]{});
 	}
 }

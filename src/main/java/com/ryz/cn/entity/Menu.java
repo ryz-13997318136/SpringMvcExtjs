@@ -2,7 +2,7 @@ package com.ryz.cn.entity;
 
 public class Menu {
 	private Long id;
-	private int index;
+	private int index1;
 	private String name;
 	private String url;
 	private Long parentId;
@@ -12,11 +12,11 @@ public class Menu {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getIndex() {
-		return index;
+	public int getIndex1() {
+		return index1;
 	}
-	public void setIndex(int index) {
-		this.index = index;
+	public void setIndex1(int index1) {
+		this.index1 = index1;
 	}
 	public String getName() {
 		return name;
@@ -39,7 +39,7 @@ public class Menu {
 	}
 	@Override
 	public String toString() {
-		return "Menu [id=" + id + ", index=" + index + ", name=" + name + ", url=" + url + ", parentId=" + parentId
+		return "Menu [id=" + id + ", index1=" + index1 + ", name=" + name + ", url=" + url + ", parentId=" + parentId
 				+ "]";
 	}
 	

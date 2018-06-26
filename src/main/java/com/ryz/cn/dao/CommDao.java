@@ -13,4 +13,10 @@ public interface CommDao {
 	<T> T find(Class<T> clazz ,Long id);
 	
 	List<Map<String,Object>> selectSql (String sql,String[] params);
+	
+	List<Map<String,Object>> selectSql (String sql);
+	
+	List<Map<String,Object>> executeQuery(String sql,String[] params);
+	
+	List<Map<String,Object>> executeQuery(String sql);
 }

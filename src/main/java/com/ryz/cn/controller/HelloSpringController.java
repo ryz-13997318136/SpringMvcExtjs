@@ -17,7 +17,7 @@ public class HelloSpringController {
 	@Autowired
 	private UserService userService ;
 	
-    String message = "Welcome to Spring MVC!";
+    String message = "Welcome  to Spring MVC!";
  
     @RequestMapping("/hello")
     public ModelAndView showMessage(@RequestParam(value = "name", required = false, defaultValue = "Spring") String name) {
@@ -65,5 +65,12 @@ public class HelloSpringController {
     	user.setPassword("123");
     	userService.update(user);
         return "1";
+    }
+    
+    @RequestMapping("/test")
+    @ResponseBody
+    public Object test() {
+    	
+    	return userService.test();
     }
 }
