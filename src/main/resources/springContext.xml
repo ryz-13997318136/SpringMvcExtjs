@@ -19,8 +19,13 @@
 	default-autowire ="byName" >
     
     <!-- 搜索spring控件 -->
-    <context:component-scan base-package="com.ryz.cn"></context:component-scan> 
-   <mvc:annotation-driven />
+  	 <context:component-scan base-package="com.ryz.cn"></context:component-scan> 
+  	 <mvc:annotation-driven />
+	<!--  <mvc:resources mapping="/extjs/**" location="/webapp/extjs/" /> -->
+	<!-- <mvc:default-servlet-handler/> -->
+	
+	
+	
   <!--  <tx:annotation-driven transaction-manager="txManager"/> -->
      
     <!-- 视图页面配置 -->

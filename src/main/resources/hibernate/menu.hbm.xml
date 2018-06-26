@@ -7,8 +7,8 @@
         <id name="id" type="long">
             <column name="ID" not-null="true" unique="true"  />
         </id>
-        <property name="index" type="int">
-            <column name="INDEX" not-null="true" />
+        <property name="index1" type="int">
+            <column name="INDEX1" not-null="true" />
         </property>
         <property name="name" type="string">
             <column name="NAME" length="25" not-null="true"/>
