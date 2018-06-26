@@ -11,7 +11,13 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" src="js/index/app.js"></script>  
 </head>
 <script type="text/javascript">  
-   
+let _cuser =  '<%=session.getAttribute("cUser")%>';
+let _cuser_srt = _cuser.substring(_cuser.indexOf('[')+1,_cuser.length-1);
+let _cuser_srt_arr = _cuser_srt.split(',');
+var _gg = {};
+_gg['_cuserId'] = _cuser_srt_arr[0].substring(_cuser_srt_arr[0].indexOf('=')+1);
+_gg['_cuserName'] = _cuser_srt_arr[1].substring(_cuser_srt_arr[1].indexOf('=')+1);
+console.log(_gg);
 </script>  
 <body>
  

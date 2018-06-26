@@ -24,7 +24,7 @@ Ext.define('index.view.indexView', {
                     	{
                     		xtype: 'panel',
                     		region: 'north', 
-        				    html: '<p>当前登录人：任彦章</p>'
+        				    html: '<p>当前登录人：'+_gg._cuserName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=loginOut>退出</a></p>'
                     	},
                     	{
                     		xtype: 'treepanel',
