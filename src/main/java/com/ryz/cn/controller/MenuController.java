@@ -77,4 +77,13 @@ public class MenuController {
 		}
 		return result;
 	}
+	@RequestMapping(value = "/loadAllMenuByRole",method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> loadAllMenuByRole(
+			@RequestParam("roleId") String roleId,
+			@RequestParam("parentId") String parentId){
+		Map<String,Object> list = menuService.loadAllMenuByRole(roleId,parentId);
+		return list;
+	}
+	
 }

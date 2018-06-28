@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ryz.cn.dao.CommDao;
+import com.ryz.cn.entity.ResBo;
 import com.ryz.cn.entity.User;
 import com.ryz.cn.service.UserService;
 
@@ -69,8 +70,10 @@ public class HelloSpringController {
     
     @RequestMapping("/test")
     @ResponseBody
-    public Object test() {
-    	
-    	return userService.test();
+    public ResBo test() {
+    	ResBo bo = new ResBo();
+    	long id = 1528354290976152814l;
+    	bo.setId(id);
+    	return bo;
     }
 }

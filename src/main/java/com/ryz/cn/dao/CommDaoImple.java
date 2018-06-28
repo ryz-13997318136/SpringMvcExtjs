@@ -1,5 +1,6 @@
 package com.ryz.cn.dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,14 +26,18 @@ public class CommDaoImple extends HibernateDaoSupport implements CommDao {
 	  private SessionFactory sessionFactory;
 	  
 	public <T> void update(T obj) {
-		
 		 sessionFactory.getCurrentSession().update(obj);
 	}
 
 	public <T> void insert(T obj) {
 		 sessionFactory.getCurrentSession().save(obj);
+		 //sessionFactory.getCurrentSession().merge(obj);
 	}
-
+	
+	public <T> void delete(Object o) {
+		sessionFactory.getCurrentSession().delete(o);
+	}
+	
 	public <T> void delete(Class<T> clazz, Long id) {
 		Object o = sessionFactory.getCurrentSession().load(clazz, id);
 		sessionFactory.getCurrentSession().delete(o);
@@ -47,6 +52,13 @@ public class CommDaoImple extends HibernateDaoSupport implements CommDao {
 		}else{
 			return list.get(0);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T  find(Class<T> clazz, Serializable id) {
+		
+		 Object res = sessionFactory.getCurrentSession().get(clazz, id);
+		 return (T)res;
 	}
 
 	public List<Map<String,Object>> selectSql (String sql,String[] params){
@@ -125,4 +137,26 @@ public class CommDaoImple extends HibernateDaoSupport implements CommDao {
 	public List<Map<String,Object>> executeQuery(String sql){
 		return this.executeQuery(sql, new String[]{});
 	}
+	
+	public int executeUpdate(String sql,String[] params){
+		try {
+			@SuppressWarnings("deprecation")
+			Connection con = sessionFactory.getCurrentSession().connection();
+			PreparedStatement st = con.prepareStatement(sql);
+			for(int i = 0;i<params.length;i++){
+				st.setObject(i+1, params[i]);
+			}
+			int res = st.executeUpdate();
+			return res;
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	public int executeUpdate(String sql){
+		return this.executeUpdate(sql, new String[]{});
+	}
+	
 }

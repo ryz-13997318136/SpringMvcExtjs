@@ -1,6 +1,13 @@
 package com.ryz.cn.entity;
 
-public class UserRole {
+import java.io.Serializable;
+
+public class UserRole implements Serializable{
+	/**
+	 * 复合主键必须实现 Serializable 接口
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Long userId;
 	private Long roleId;
 	public Long getUserId() {

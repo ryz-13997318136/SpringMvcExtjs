@@ -69,4 +69,42 @@ public class RoleController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/loadRoleByUserId",method = RequestMethod.GET)
+	@ResponseBody
+	public  Map<String,Object> loadRoleByUserId(@RequestParam("userId") long userId){
+		return roleService.loadRoleByUserId(userId);
+	}
+	
+	@RequestMapping(value = "/userRelationRole",method = RequestMethod.POST)
+	@ResponseBody
+	public  Map<String,Object> userRelationRole(@RequestParam long userId,@RequestParam long[] roleIds){
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("result", "SUCCESS");
+		result.put("message", "操作成功！");
+		try{
+			roleService.userRelationRole(userId,roleIds);
+		}catch(Exception e){
+			result.put("result", "FAIL");
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+	@RequestMapping(value = "/roleRelationMenu",method = RequestMethod.POST)
+	@ResponseBody
+	public  Map<String,Object> roleRelationMenu(@RequestParam long roleId,
+			@RequestParam long menuId,
+			@RequestParam boolean checked){
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("result", "SUCCESS");
+		result.put("message", "操作成功！");
+		try{
+			roleService.roleRelationMenu(roleId,menuId,checked);
+		}catch(Exception e){
+			result.put("result", "FAIL");
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+	
 }

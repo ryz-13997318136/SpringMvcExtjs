@@ -70,4 +70,12 @@ public class UserService {
 		 return dao.executeQuery(sql,new String[]{"ryz","123"});
 		
 	 }
+	 @Transactional
+	 public  Map<String,Object> loadUserByKey(String keyword){
+		 String sql = "select id,name, password from e_user where name like ?";
+		 List<Map<String,Object>> list = dao.executeQuery(sql, new String[]{"%"+keyword+"%"});
+		 Map<String,Object> map = new HashMap<String,Object>();
+		 map.put("Users", list);
+		 return map;
+	 }
 }

@@ -5,12 +5,18 @@
 <hibernate-mapping>
     <class name="com.ryz.cn.entity.RoleMenu" table="e_role_menu" catalog="">
     
-        <id name="roleId" type="long">
+    <!--     <id name="roleId" type="long">
             <column name="role_id" not-null="true" unique="true"  />
         </id>
         <property name="menuId" type="long">
             <column name="menu_id" not-null="true" />
-        </property>
+        </property> -->
+       
+         <composite-id>
+            <!-- key-property标签表示哪一些属性对应复合主键 -->
+            <key-property name="roleId" column="role_id" type="long" ></key-property>
+            <key-property name="menuId" column="menu_id" type="long" ></key-property>
+        </composite-id>
        
     </class>
 </hibernate-mapping>

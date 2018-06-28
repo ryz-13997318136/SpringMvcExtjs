@@ -69,4 +69,12 @@ public class UserController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/loadUserByKey",method = RequestMethod.GET)
+	@ResponseBody
+	public  Map<String,Object> loadUserByKey(@RequestParam("keyword")String keyword){
+		 Map<String,Object> map = userService.loadUserByKey(keyword);
+		return map;
+	}
+	
 }
